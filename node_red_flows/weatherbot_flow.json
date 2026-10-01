@@ -17,7 +17,7 @@
         "upload": false,
         "skipBodyParsing": false,
         "swaggerDoc": "",
-        "x": 130,
+        "x": 110,
         "y": 160,
         "wires": [
             [
@@ -32,7 +32,7 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 1090,
+        "x": 1130,
         "y": 440,
         "wires": []
     },
@@ -42,19 +42,22 @@
         "z": "0c625fedca5444c8",
         "name": "",
         "method": "GET",
-        "ret": "txt",
-        "paytoqs": false,
+        "ret": "obj",
+        "paytoqs": "ignore",
         "url": "",
+        "tls": "",
         "persist": false,
+        "proxy": "",
         "insecureHTTPParser": false,
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 510,
+        "x": 430,
         "y": 300,
         "wires": [
             [
-                "31b9208209c1aa3b"
+                "0b35f4c51cf936ba",
+                "4a4bf44151452cc0"
             ]
         ]
     },
@@ -67,9 +70,9 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "https://api.openweathermap.org/data/2.5/weather?q={{slots.location}}&appid=<apikey>&units=metric",
+        "template": "https://api.openweathermap.org/data/2.5/weather?q={{slots.location}}&appid=2d700009fe0e1503255bea6aa4af3b13&units=metric",
         "output": "str",
-        "x": 300,
+        "x": 240,
         "y": 300,
         "wires": [
             [
@@ -88,11 +91,11 @@
         "syntax": "mustache",
         "template": "The weather in {{payload.name}} is {{payload.weather.0.description}}",
         "output": "str",
-        "x": 720,
+        "x": 800,
         "y": 300,
         "wires": [
             [
-                "84744dcde7219a79"
+                "124d121523a3a194"
             ]
         ]
     },
@@ -101,7 +104,7 @@
         "type": "init",
         "z": "0c625fedca5444c8",
         "name": "",
-        "x": 330,
+        "x": 290,
         "y": 160,
         "wires": [
             [
@@ -110,29 +113,11 @@
         ]
     },
     {
-        "id": "84744dcde7219a79",
-        "type": "sendtext",
-        "z": "0c625fedca5444c8",
-        "name": "",
-        "position": "0",
-        "positionType": "num",
-        "text": "payload.text",
-        "textType": "msg",
-        "senderr": false,
-        "x": 720,
-        "y": 440,
-        "wires": [
-            [
-                "b5a8aa2fe8439274"
-            ]
-        ]
-    },
-    {
         "id": "b5a8aa2fe8439274",
         "type": "finish",
         "z": "0c625fedca5444c8",
         "name": "",
-        "x": 910,
+        "x": 970,
         "y": 440,
         "wires": [
             [
@@ -153,12 +138,92 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 860,
-        "y": 560,
+        "x": 980,
+        "y": 540,
         "wires": []
     },
     {
-        "id": "4de4078fa3d2f21c",
+        "id": "0b35f4c51cf936ba",
+        "type": "template",
+        "z": "0c625fedca5444c8",
+        "name": "",
+        "field": "payload.weathericon",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "https://raw.githubusercontent.com/weberi/weather-icons-lite/refs/heads/master/images/{{payload.weather.0.icon}}.jpg",
+        "output": "str",
+        "x": 620,
+        "y": 300,
+        "wires": [
+            [
+                "31b9208209c1aa3b"
+            ]
+        ]
+    },
+    {
+        "id": "124d121523a3a194",
+        "type": "sendextra",
+        "z": "0c625fedca5444c8",
+        "name": "",
+        "position": "0",
+        "positionType": "num",
+        "text": "payload.text",
+        "textType": "msg",
+        "image": "payload.weathericon",
+        "imageType": "msg",
+        "attachment": "",
+        "attachmentType": "str",
+        "senderr": false,
+        "x": 800,
+        "y": 440,
+        "wires": [
+            [
+                "b5a8aa2fe8439274"
+            ]
+        ]
+    },
+    {
+        "id": "28cf50aa3454933d",
+        "type": "simrasa",
+        "z": "0c625fedca5444c8",
+        "name": "",
+        "action": "action_weather",
+        "errtocatch": false,
+        "slots": [
+            {
+                "slotname": "location",
+                "slotname-type": "str",
+                "slotvalue": "Kempten",
+                "slotvalue-type": "str"
+            }
+        ],
+        "x": 230,
+        "y": 480,
+        "wires": [
+            [
+                "752b82a283579013"
+            ]
+        ]
+    },
+    {
+        "id": "4a4bf44151452cc0",
+        "type": "debug",
+        "z": "0c625fedca5444c8",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "15ea94e765cd8b47",
         "type": "global-config",
         "env": [],
         "modules": {
